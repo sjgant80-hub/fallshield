@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>fallshield · sovereign Ed25519 identity · ◊·κ=1</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--ox:#8b1a1a;--ox-dim:#5a1010;--brass:#b8974a;--brass-dim:#7a6228;--cream:#c4bfb2;--cream-dim:#7d7a72;--void:#0b0a0f;--void-2:#14121a;--void-3:#1e1b25;--green:#4caf50;--red:#e53935}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--void);color:var(--cream);font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;font-size:14px;line-height:1.65;min-height:100vh}
+body{background-image:radial-gradient(at 0% 0%,rgba(139,26,26,.08),transparent 50%),radial-gradient(at 100% 100%,rgba(184,151,74,.05),transparent 50%)}
+a{color:var(--brass);text-decoration:none;border-bottom:1px dotted var(--brass-dim)}
+.wrap{max-width:920px;margin:0 auto;padding:60px 32px 120px}
+header{margin-bottom:64px;border-bottom:1px solid var(--ox-dim);padding-bottom:32px}
+header h1{font-size:42px;letter-spacing:6px;font-weight:400;margin-bottom:14px}
+header h1 .s{color:var(--ox);font-size:48px}
+header h1 .k{color:var(--brass)}
+header .sub{color:var(--cream-dim);letter-spacing:2px;font-size:13px;margin-bottom:18px}
+header .meta{display:flex;gap:18px;flex-wrap:wrap;font-size:11px;color:var(--cream-dim);letter-spacing:1px}
+header .meta span{padding:3px 10px;border:1px solid var(--brass-dim);color:var(--brass)}
+section{margin-bottom:56px}
+h2{font-size:11px;letter-spacing:4px;color:var(--brass);text-transform:uppercase;margin-bottom:18px;border-bottom:1px solid var(--brass-dim);padding-bottom:6px}
+h3{font-size:14px;letter-spacing:2px;color:var(--cream);margin:24px 0 10px;text-transform:uppercase}
+p{margin-bottom:14px}
+.lead{font-size:18px;line-height:1.7}
+.hook{color:var(--cream-dim);font-style:italic;margin-bottom:32px;padding-left:18px;border-left:2px solid var(--brass)}
+ul{list-style:none}ul li{padding:4px 0;padding-left:20px;position:relative}ul li:before{content:"◊";position:absolute;left:0;color:var(--ox)}
+code,pre{font-family:inherit;background:var(--void-2);color:var(--brass);padding:2px 8px;border:1px solid var(--void-3);word-break:break-all}
+pre{padding:14px 18px;margin:14px 0;overflow-x:auto;font-size:11px;line-height:1.5;border-left:2px solid var(--ox);color:var(--cream)}
+.btn{display:inline-block;padding:12px 22px;background:var(--ox);color:#fff;letter-spacing:3px;font-size:12px;border:1px solid var(--ox);cursor:pointer;font-family:inherit;text-transform:uppercase}
+.btn:hover{background:#a02020}
+.btn.dim{background:var(--void-2);color:var(--cream)}
+.demo{background:var(--void-2);border:1px solid var(--brass-dim);padding:24px;margin:24px 0}
+.demo input,.demo textarea,.demo button{background:var(--void);color:var(--cream);border:1px solid var(--void-3);padding:10px 14px;font-family:inherit;font-size:13px;margin:6px 0;width:100%;cursor:pointer}
+.demo textarea{min-height:60px;resize:vertical}
+.demo button.go{background:var(--ox);color:#fff;letter-spacing:2px;border-color:var(--ox)}
+.demo .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.demo .status{margin-top:10px;font-size:12px;color:var(--cream-dim);min-height:18px}
+.ok{color:var(--green)} .err{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px 12px;border:1px solid var(--void-3)}th{background:var(--void-2);color:var(--brass);letter-spacing:2px;font-size:11px;text-transform:uppercase}td.good{color:var(--green)}td.dim{color:var(--cream-dim)}
+.seal{margin-top:80px;text-align:center;color:var(--cream-dim);font-size:11px;letter-spacing:3px}.seal .s{color:var(--ox);font-size:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<h1><span class="s">◊</span> fallshield <span class="k">·κ=1</span></h1>
+<div class="sub">SOVEREIGN ED25519 IDENTITY · PROVE IT'S REALLY YOU</div>
+<div class="meta"><span>ED25519</span><span>WEBCRYPTO</span><span>BROWSER-NATIVE</span><span>NO DEPS</span><span>MIT</span></div>
+</header>
+
+<section>
+<p class="lead">If someone clones your repo, copies your branding, fakes a Twitter account in your name · fallshield is the cryptographic proof that the real you signed the real build.</p>
+<p class="hook">"A keypair you generate in 2 seconds. The public half goes on your hub. The secret half stays on your machine. Every tool you ship gets signed. Anyone can verify. Impersonators cannot fake the signature without your secret key."</p>
+</section>
+
+<section>
+<h2>Live · generate a keypair right now</h2>
+<div class="demo">
+<h3>◊ keypair generator</h3>
+<p style="font-size:12px;color:var(--cream-dim)">Click GENERATE. Your browser creates an Ed25519 keypair. <strong>Secret key never leaves this page</strong> — copy it somewhere safe (a password manager, paper, fallvault).</p>
+<button class="go" id="genBtn">GENERATE KEYPAIR ◊</button>
+<div class="demo" style="margin-top:14px">
+  <label style="font-size:11px;color:var(--brass);letter-spacing:2px">PUBLIC KEY (publish anywhere · safe)</label>
+  <textarea id="pub" readonly style="min-height:50px"></textarea>
+  <label style="font-size:11px;color:var(--brass);letter-spacing:2px">SECRET KEY (KEEP PRIVATE · paper backup + fallvault)</label>
+  <textarea id="sec" readonly style="min-height:50px"></textarea>
+  <label style="font-size:11px;color:var(--brass);letter-spacing:2px">FINGERPRINT (use this as a short handle)</label>
+  <input id="fp" readonly>
+</div>
+<div class="status" id="genStatus"></div>
+</div>
+</section>
+
+<section>
+<h2>Live · sign a message + verify it</h2>
+<div class="demo">
+<h3>◊ sign · verify roundtrip</h3>
+<p style="font-size:12px;color:var(--cream-dim)">Generate a key above first. Then type a message. Sign produces a signature. Verify confirms it's yours.</p>
+<textarea id="msg">I, Simon Gant, attest that fallshield v1.0 is part of the AI Native Solutions sovereign estate. ◊·κ=1</textarea>
+<div class="row">
+  <button class="go" id="signBtn">SIGN ◊</button>
+  <button class="go" id="verBtn">VERIFY</button>
+</div>
+<label style="font-size:11px;color:var(--brass);letter-spacing:2px">SIGNATURE</label>
+<textarea id="sig" style="min-height:50px"></textarea>
+<div class="status" id="signStatus"></div>
+</div>
+</section>
+
+<section>
+<h2>Drop into ANY sovereign tool · 2 lines</h2>
+<pre><code>&lt;script src="https://sjgant80-hub.github.io/fallshield/fallshield-shim.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const kp = await FallShield.generate();
+  const sig = await FallShield.sign('hello world', kp.secretKey);
+  const ok = await FallShield.verify('hello world', sig, kp.publicKey);
+  console.log('valid?', ok);
+&lt;/script&gt;</code></pre>
+</section>
+
+<section>
+<h2>The identity card pattern</h2>
+<p>Once you have a keypair, you publish your <strong>public key + identity card</strong> somewhere everyone can find it (your hub, your GitHub profile, your LinkedIn). The card is just JSON:</p>
+<pre><code>{
+  "kind": "fallshield/identity",
+  "v": "1.0.0",
+  "name": "Simon Gant",
+  "publicKey": "&lt;base64 ed25519 public key&gt;",
+  "issued": "2026-05-30T22:00:00Z",
+  "seal": "◊·κ=1",
+  "prime": 379,
+  "hub": "https://www.ai-nativesolutions.com",
+  "github": "sjgant80-hub"
+}</code></pre>
+<p>Now anyone can fetch your card, grab your public key, and verify any signed artifact you ship. Impersonators can't fake the signature without your secret key — even if they clone every public byte you've ever published.</p>
+</section>
+
+<section>
+<h2>Why this exists · the impersonation defense</h2>
+<table>
+<thead><tr><th>Threat</th><th>fallshield response</th></tr></thead>
+<tbody>
+<tr><td class="dim">Someone forks your repos and rebrands as themselves</td><td class="good">Original signed releases verify · clones don't</td></tr>
+<tr><td class="dim">Spoofed Twitter / LinkedIn / FB account in your name</td><td class="good">Real account links to your public key + card</td></tr>
+<tr><td class="dim">Phishing tool pretending to be your sovereign build</td><td class="good">Tool's manifest is signed · users check signature on download</td></tr>
+<tr><td class="dim">Modified version of your tool with malware injected</td><td class="good">Signature breaks · users see the warning</td></tr>
+<tr><td class="dim">"Did this person really write this?"</td><td class="good">Anyone can verify with your public card in 1 second</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>Estate ripple</h2>
+<p>Every sovereign tool in the estate adopts the shield pattern:</p>
+<ul>
+<li>Each tool's manifest gets signed with your Ed25519 secret key at build time</li>
+<li>Public key + identity card published at your hub root: <code>ai-nativesolutions.com/.fallshield-identity.json</code></li>
+<li>Tools verify their own manifest signature on load · refuse to run if mismatched (optional · opt-in)</li>
+<li>fall-registry stores the public key fingerprint per tool · cross-check at any time</li>
+</ul>
+<p>This compounds with the existing Konomi Ed25519 audit-chain pattern already in your estate (tasks 32-44). fallshield extends it from <em>transaction-level</em> to <em>identity-level</em>.</p>
+</section>
+
+<section>
+<h2>FAQ</h2>
+<h3>What's the difference from Konomi?</h3>
+<p>Konomi signs <em>actions inside</em> your tools (transaction audit chain). fallshield signs the <em>tools themselves</em> + <em>your identity</em>. They mesh.</p>
+<h3>Can I have multiple keypairs?</h3>
+<p>Yes · one master + per-tool sub-keys is recommended. Master signs sub-keys' identity cards. Master stays in cold storage (paper + fallvault). Sub-keys do daily work.</p>
+<h3>What if I lose my secret key?</h3>
+<p>Rotate · publish a new public key signed by the old one (revocation pattern). The estate updates in 24 hours via the registry.</p>
+<h3>Is Ed25519 the right curve?</h3>
+<p>Standard since 2018 · used by SSH, Tor, Signal, age, minisign. WebCrypto added native support in 2023. Faster than RSA, smaller signatures, no entropy hazard at sign-time.</p>
+</section>
+
+<section>
+<h2>License</h2>
+<p>MIT · part of <a href="https://www.ai-nativesolutions.com">AI Native Solutions</a> · <a href="https://github.com/sjgant80-hub/fallshield">source</a></p>
+</section>
+
+<div class="seal"><span class="s">◊·κ=1</span> &nbsp; prime 283 &nbsp; v20.1 · phi=1.618 · kappa=0.618 &nbsp; the signature compounds</div>
+</div>
+
+<script src="./fallshield-shim.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+let currentKP = null;
+
+$('#genBtn').onclick = async () => {
+  $('#genStatus').textContent = 'generating Ed25519 keypair…';
+  try {
+    currentKP = await window.FallShield.generate();
+    $('#pub').value = currentKP.publicKey;
+    $('#sec').value = currentKP.secretKey;
+    $('#fp').value = await window.FallShield.fingerprint(currentKP.publicKey);
+    $('#genStatus').innerHTML = '<span class="ok">✓ generated · save BOTH halves · publish public, hide secret</span>';
+  } catch (e) {
+    $('#genStatus').innerHTML = '<span class="err">✗ ' + e.message + '</span> · WebCrypto Ed25519 requires Chrome 113+ / Safari 17+ / Firefox 130+';
+  }
+};
+
+$('#signBtn').onclick = async () => {
+  if (!currentKP) { $('#signStatus').innerHTML = '<span class="err">generate a keypair first</span>'; return; }
+  $('#signStatus').textContent = 'signing…';
+  try {
+    const sig = await window.FallShield.sign($('#msg').value, currentKP.secretKey);
+    $('#sig').value = sig;
+    $('#signStatus').innerHTML = '<span class="ok">✓ signed · ' + sig.length + ' base64 chars</span>';
+  } catch (e) {
+    $('#signStatus').innerHTML = '<span class="err">✗ ' + e.message + '</span>';
+  }
+};
+
+$('#verBtn').onclick = async () => {
+  if (!currentKP) { $('#signStatus').innerHTML = '<span class="err">generate a keypair + sign first</span>'; return; }
+  const sig = $('#sig').value.trim();
+  if (!sig) { $('#signStatus').innerHTML = '<span class="err">paste a signature first</span>'; return; }
+  try {
+    const ok = await window.FallShield.verify($('#msg').value, sig, currentKP.publicKey);
+    $('#signStatus').innerHTML = ok ? '<span class="ok">✓ verified · signature is authentic for this message + key</span>' : '<span class="err">✗ verification failed</span>';
+  } catch (e) {
+    $('#signStatus').innerHTML = '<span class="err">✗ ' + e.message + '</span>';
+  }
+};
+</script>
+</body>
+</html>
