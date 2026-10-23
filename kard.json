@@ -1,0 +1,29 @@
+{
+  "kind": "kard.v1",
+  "name": "fallshield",
+  "title": "fallshield",
+  "retires": "identity verification",
+  "category": "Files, identity and security",
+  "license": "MIT",
+  "live": "https://sjgant80-hub.github.io/fallshield/",
+  "repo": "https://github.com/sjgant80-hub/fallshield",
+  "studs": {
+    "brain": {
+      "how": "inline",
+      "version": "3.1.0"
+    },
+    "mesh": {
+      "device": true,
+      "peer": false
+    },
+    "memory": {
+      "indexeddb": false,
+      "localstorage": false
+    },
+    "proof": {
+      "workflows": 1,
+      "tests": 0
+    }
+  },
+  "fits": false
+}
